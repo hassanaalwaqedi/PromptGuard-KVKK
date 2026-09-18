@@ -1,0 +1,21 @@
+# Python
+backend/.venv/
+backend/__pycache__/
+backend/**/*.py[cod]
+backend/promptguard.db
+backend/.env
+
+# Node / Next.js
+frontend/node_modules/
+frontend/.next/
+frontend/.env.local
+frontend/.env*.local
+
+# Local tooling
+.DS_Store
+*.log
+
+# Generated verification artifacts and preserved nested repository metadata
+artifacts/
+.pytest_cache/
+frontend/.git.frontend-history/
