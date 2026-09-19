@@ -127,7 +127,7 @@ export default function Home() {
 
         <footer className="mt-12 flex flex-col justify-between gap-2 border-t border-slate-800/70 pt-5 text-[11px] text-slate-600 sm:flex-row">
           <span>Transient analysis. Raw prompts and detected values are not stored.</span>
-          <span>PromptGuard-KVKK</span>
+          <span>Designed and developed by Yazan</span>
         </footer>
       </div>
     </main>
