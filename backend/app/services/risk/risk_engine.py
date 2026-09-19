@@ -16,6 +16,7 @@ from app.services.risk.weights import (
     FINANCIAL_CONTACT_BONUS,
     MAX_RISK_SCORE,
     REPEATED_ENTITY_BONUS,
+    SUSPICIOUS_IDENTIFIER_REVIEW_BONUS,
     THREE_CATEGORY_DIVERSITY_BONUS,
     category_for,
     risk_level_for_score,
@@ -57,7 +58,7 @@ class RiskEngine:
 
         types = {entity.type for entity in entities}
         categories = {category_for(entity.type) for entity in entities}
-        meaningful_categories = categories - {"OTHER"}
+        meaningful_categories = categories - {"OTHER", "SUSPICIOUS_IDENTIFIER"}
         bonus = 0.0
 
         if types & {"TC_ID", "PASSPORT_ID"}:
@@ -108,6 +109,22 @@ class RiskEngine:
                     rule="THREE_MEANINGFUL_CATEGORIES",
                     message="Three or more meaningful sensitivity categories occur together.",
                     bonus=THREE_CATEGORY_DIVERSITY_BONUS,
+                )
+            )
+
+        if types & {
+            "POSSIBLE_TC_ID",
+            "POSSIBLE_PASSPORT_ID",
+            "POSSIBLE_CREDIT_CARD",
+            "POSSIBLE_IBAN",
+        }:
+            bonus += SUSPICIOUS_IDENTIFIER_REVIEW_BONUS
+            factors.append(
+                RiskFactor(
+                    kind="sensitivity",
+                    rule="SUSPICIOUS_IDENTIFIER_REVIEW",
+                    message="An unverified identifier-like value requires review.",
+                    bonus=SUSPICIOUS_IDENTIFIER_REVIEW_BONUS,
                 )
             )
 

@@ -17,6 +17,12 @@ ENTITY_WEIGHTS: Final[dict[str, float]] = {
     "IP_ADDRESS": 12.0,
     "URL": 4.0,
     "ORGANIZATION": 5.0,
+    # Suspicious near-matches are intentionally lower-weight warnings. They
+    # never receive the direct-identifier combination bonuses below.
+    "POSSIBLE_TC_ID": 10.0,
+    "POSSIBLE_PASSPORT_ID": 10.0,
+    "POSSIBLE_CREDIT_CARD": 10.0,
+    "POSSIBLE_IBAN": 8.0,
 }
 
 ENTITY_CATEGORIES: Final[dict[str, str]] = {
@@ -32,6 +38,10 @@ ENTITY_CATEGORIES: Final[dict[str, str]] = {
     "DATE": "PERSONAL_INFORMATION",
     "URL": "OTHER",
     "ORGANIZATION": "OTHER",
+    "POSSIBLE_TC_ID": "SUSPICIOUS_IDENTIFIER",
+    "POSSIBLE_PASSPORT_ID": "SUSPICIOUS_IDENTIFIER",
+    "POSSIBLE_CREDIT_CARD": "SUSPICIOUS_IDENTIFIER",
+    "POSSIBLE_IBAN": "SUSPICIOUS_IDENTIFIER",
 }
 
 # Additive, bounded bonuses. They are deliberately not multipliers so that a
@@ -42,6 +52,7 @@ DIRECT_IDENTIFIER_FINANCIAL_BONUS: Final[float] = 15.0
 FINANCIAL_CONTACT_BONUS: Final[float] = 8.0
 THREE_CATEGORY_DIVERSITY_BONUS: Final[float] = 8.0
 REPEATED_ENTITY_BONUS: Final[float] = 3.0
+SUSPICIOUS_IDENTIFIER_REVIEW_BONUS: Final[float] = 18.0
 
 LOW_MAX: Final[int] = 20
 MEDIUM_MAX: Final[int] = 45

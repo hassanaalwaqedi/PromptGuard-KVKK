@@ -13,6 +13,10 @@ ENTITY_REASONS: dict[str, str] = {
     "IP_ADDRESS": "A network address was detected.",
     "URL": "A URL was detected.",
     "ORGANIZATION": "An organization name was detected by the local semantic provider.",
+    "POSSIBLE_TC_ID": "A TC-ID-like value was detected, but its checksum is invalid.",
+    "POSSIBLE_PASSPORT_ID": "A passport-context identifier was detected, but its format is unverified.",
+    "POSSIBLE_CREDIT_CARD": "A card-shaped value was detected, but its checksum is invalid.",
+    "POSSIBLE_IBAN": "An IBAN-like value was detected, but its checksum is invalid.",
 }
 
 

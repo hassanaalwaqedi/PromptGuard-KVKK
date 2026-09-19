@@ -44,6 +44,10 @@ def sanitize_prompt(
             if key not in person_placeholders:
                 person_placeholders[key] = f"[PERSON_{len(person_placeholders) + 1}]"
             replacement = person_placeholders[key]
+        elif action == "WARN":
+            # Suspicious near-matches are surfaced honestly but left intact;
+            # callers can review them without pretending validation succeeded.
+            replacement = entity.text
         else:
             replacement = f"[{entity.type}]"
         output.append(replacement)

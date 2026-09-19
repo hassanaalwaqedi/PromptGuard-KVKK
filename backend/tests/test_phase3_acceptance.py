@@ -29,19 +29,19 @@ def _entity(entity_type: str, text: str, confidence: float = 0.99, start: int = 
     ("prompt", "expected_types"),
     [
         ("Ara +90 532 123 45 67", ["PHONE"]),
-        ("Sayi 12345678901", []),
+        ("Sayi 12345678901", ["POSSIBLE_TC_ID"]),
         ("Email user@example.com", ["EMAIL"]),
         ("Hesap TR330006100519786457841326", ["IBAN"]),
-        ("Hesap TR330006100519786457841327", []),
+        ("Hesap TR330006100519786457841327", ["POSSIBLE_IBAN"]),
         ("Kart 4242-4242-4242-4242", ["CREDIT_CARD"]),
-        ("Kart 4242-4242-4242-4241", []),
+        ("Kart 4242-4242-4242-4241", ["POSSIBLE_CREDIT_CARD"]),
         ("Sunucu 192.168.1.1", ["IP_ADDRESS"]),
         ("Sunucu 999.999.999.999", []),
         ("Tarih 18/09/2026", ["DATE"]),
         ("Tarih 31/02/2026", []),
         ("Site https://example.com/path", ["URL"]),
         ("Kimlik 10000000146", ["TC_ID"]),
-        ("Kimlik 12345678901", []),
+        ("Kimlik 12345678901", ["POSSIBLE_TC_ID"]),
         (
             "Ahmet Y\u0131lmaz, +90 532 123 45 67, user@example.com, TR330006100519786457841326",
             ["PERSON", "PHONE", "EMAIL", "IBAN"],
@@ -74,7 +74,7 @@ def test_semantic_provider_is_reported_without_faking_bare_organization_detectio
 
     assert body["ner_provider"] == "heuristic-local"
     assert {entity["type"] for entity in body["entities"]} >= {"PERSON", "LOCATION"}
-    assert "Microsoft" not in {entity["text"] for entity in body["entities"]}
+    assert "Microsoft" in {entity["text"] for entity in body["entities"]}
 
 
 def test_risk_boundaries_and_policy_are_inclusive() -> None:

@@ -17,7 +17,7 @@ function maskEntity(entity: DetectedEntity): string {
 }
 
 function actionLabel(action: DetectedEntity["sanitization_action"]): string {
-  return action === "PSEUDONYMIZE" ? "PSEUDONYMIZED" : action === "MASK" ? "MASKED" : "KEPT";
+  return action === "PSEUDONYMIZE" ? "PSEUDONYMIZED" : action === "MASK" ? "MASKED" : action === "WARN" ? "UNVERIFIED" : "KEPT";
 }
 
 type EntityListProps = {
@@ -44,7 +44,7 @@ export function EntityList({ entities }: EntityListProps) {
                 <div className="flex flex-wrap items-center gap-2">
                   <span className="text-xs font-semibold tracking-[0.14em] text-teal-200">{entity.type}</span>
                   <span className="rounded-full border border-slate-700 px-2 py-0.5 text-[10px] text-slate-500">{entity.category}</span>
-                  <span className={`rounded-full border px-2 py-0.5 text-[10px] ${entity.sanitization_action === "MASK" ? "border-rose-300/25 text-rose-200/80" : entity.sanitization_action === "PSEUDONYMIZE" ? "border-amber-300/25 text-amber-200/80" : "border-emerald-300/25 text-emerald-200/80"}`}>{actionLabel(entity.sanitization_action)}</span>
+                  <span className={`rounded-full border px-2 py-0.5 text-[10px] ${entity.sanitization_action === "MASK" ? "border-rose-300/25 text-rose-200/80" : entity.sanitization_action === "PSEUDONYMIZE" ? "border-amber-300/25 text-amber-200/80" : entity.sanitization_action === "WARN" ? "border-orange-300/25 text-orange-200/80" : "border-emerald-300/25 text-emerald-200/80"}`}>{actionLabel(entity.sanitization_action)}</span>
                 </div>
                 <p className="mt-2 break-all font-mono text-sm text-slate-200">{maskEntity(entity)}</p>
               </div>

@@ -2,7 +2,7 @@
 
 from typing import Final, Literal
 
-SanitizationAction = Literal["KEEP", "PSEUDONYMIZE", "MASK"]
+SanitizationAction = Literal["KEEP", "PSEUDONYMIZE", "MASK", "WARN"]
 
 SANITIZATION_POLICY: Final[dict[str, SanitizationAction]] = {
     "TC_ID": "MASK",
@@ -22,4 +22,6 @@ SANITIZATION_POLICY: Final[dict[str, SanitizationAction]] = {
 
 def action_for(entity_type: str) -> SanitizationAction:
     """Unknown future entity types remain visible until explicitly classified."""
+    if entity_type.startswith("POSSIBLE_"):
+        return "WARN"
     return SANITIZATION_POLICY.get(entity_type, "KEEP")

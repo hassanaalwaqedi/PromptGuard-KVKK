@@ -26,7 +26,10 @@ def test_tc_validator_accepts_synthetic_checksum_example_and_rejects_near_matche
 
 def test_tc_detector_only_returns_checksum_valid_identifier() -> None:
     entities = RegexDetector().detect("Geçerli 10000000146, geçersiz 12345678901.")
-    assert [(entity.type, entity.text) for entity in entities] == [("TC_ID", "10000000146")]
+    assert [(entity.type, entity.text) for entity in entities] == [
+        ("TC_ID", "10000000146"),
+        ("POSSIBLE_TC_ID", "12345678901"),
+    ]
 
 
 def test_turkish_phone_formats_and_normalized_metadata() -> None:

@@ -28,7 +28,7 @@ export interface DetectedEntity {
   base_weight: number;
   risk_contribution: number;
   reason: string;
-  sanitization_action: "KEEP" | "PSEUDONYMIZE" | "MASK";
+  sanitization_action: "KEEP" | "PSEUDONYMIZE" | "MASK" | "WARN";
 }
 
 export type RiskLevel = "LOW" | "MEDIUM" | "HIGH" | "CRITICAL";
