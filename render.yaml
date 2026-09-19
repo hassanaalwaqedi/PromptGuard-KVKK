@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: promptguard-kvkk
+    env: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/v1/health
+    envVars:
+      - key: APP_ENV
+        value: production
+      - key: FRONTEND_URL
+        value: https://promptguard-kvkk.web.app
+      - key: DATABASE_URL
+        value: sqlite:///./promptguard.db

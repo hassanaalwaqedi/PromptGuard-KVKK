@@ -1,0 +1,2 @@
+# Render compatibility when the service Root Directory is left at the repository root.
+-r backend/requirements.txt
