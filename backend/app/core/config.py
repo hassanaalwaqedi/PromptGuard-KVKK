@@ -15,7 +15,10 @@ class Settings:
     app_env: str = os.getenv("APP_ENV", "development")
     api_v1_prefix: str = os.getenv("API_V1_PREFIX", "/api/v1")
     database_url: str = os.getenv("DATABASE_URL", "sqlite:///./promptguard.db")
-    frontend_url: str = os.getenv("FRONTEND_URL", "http://localhost:3000")
+    frontend_url: str = os.getenv(
+        "FRONTEND_URL",
+        "http://localhost:3000,https://promptguard-kvkk.web.app",
+    )
 
     @property
     def frontend_origins(self) -> list[str]:
