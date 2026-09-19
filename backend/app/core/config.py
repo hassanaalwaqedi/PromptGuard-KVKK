@@ -24,6 +24,8 @@ class Settings:
     def frontend_origins(self) -> list[str]:
         """Configured origins plus explicit local-development loopback aliases."""
         origins = [origin.strip() for origin in self.frontend_url.split(",") if origin.strip()]
+        if "https://promptguard-kvkk.web.app" not in origins:
+            origins.append("https://promptguard-kvkk.web.app")
         if self.app_env == "development":
             origins.extend(
                 [
