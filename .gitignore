@@ -19,3 +19,4 @@ frontend/.env*.local
 artifacts/
 .pytest_cache/
 frontend/.git.frontend-history/
+.firebase/
