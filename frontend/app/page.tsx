@@ -18,6 +18,7 @@ export default function Home() {
   const [prompt, setPrompt] = useState("");
   const [analyzedPrompt, setAnalyzedPrompt] = useState("");
   const [isConnected, setIsConnected] = useState<boolean | null>(null);
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [loadingStep, setLoadingStep] = useState(0);
   const [result, setResult] = useState<AnalyzeResponse | null>(null);
@@ -66,6 +67,12 @@ export default function Home() {
     setError(null);
   }
 
+  function toggleTheme() {
+    const nextTheme = theme === "dark" ? "light" : "dark";
+    setTheme(nextTheme);
+    document.documentElement.dataset.theme = nextTheme;
+  }
+
   return (
     <main className="min-h-screen bg-[#050914] text-slate-100">
       <div className="mx-auto w-full max-w-[1320px] px-4 py-5 sm:px-6 sm:py-8 lg:px-8">
@@ -77,7 +84,20 @@ export default function Home() {
               <p className="mt-0.5 text-xs text-slate-500">Privacy Firewall for Generative AI</p>
             </div>
           </div>
-          <div className="pt-2"><BackendStatus connected={isConnected} /></div>
+          <div className="flex items-center gap-4 pt-2">
+            <BackendStatus connected={isConnected} />
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="inline-flex items-center gap-2 rounded-lg border border-slate-700 px-2.5 py-1.5 text-xs font-medium text-slate-300 transition hover:border-teal-300/50 hover:text-teal-200"
+              aria-label={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+              aria-pressed={theme === "light"}
+              title={`Switch to ${theme === "dark" ? "light" : "dark"} mode`}
+            >
+              <span aria-hidden="true" className="text-sm">{theme === "dark" ? "☼" : "☾"}</span>
+              <span className="hidden sm:inline">{theme === "dark" ? "Light mode" : "Dark mode"}</span>
+            </button>
+          </div>
         </header>
 
         <section className="grid gap-6 py-9 lg:grid-cols-[1fr_auto] lg:items-end">
